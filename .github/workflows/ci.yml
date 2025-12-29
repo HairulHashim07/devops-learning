@@ -1,0 +1,29 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: |
+          chmod +x tests/test.sh
+          ./tests/test.sh
+
+      - name: Build app
+        run: |
+          mkdir -p build
+          cp src/app.sh build/app.sh
+          chmod +x build/app.sh
+
+      - name: Run app
+        run: |
+          ./build/app.sh
