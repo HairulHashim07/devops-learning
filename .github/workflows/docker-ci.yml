@@ -1,0 +1,23 @@
+name: Docker CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout code
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2️⃣ Build Docker image
+      - name: Build Docker image
+        run: docker build -t devops-app:ci .
+
+      # 3️⃣ Run tests inside Docker
+      - name: Run tests
+        run: docker run devops-app:ci
